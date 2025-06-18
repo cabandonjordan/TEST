@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Glare Hover Effect</title>
+    <style>
+        :root {
+            --gh-width: 300px;
+            --gh-height: 300px;
+            --gh-bg: #0f0c1d;
+            --gh-br: 20px;
+            --gh-border: rgba(255, 255, 255, 0.05);
+            --gh-rgba: rgba(255, 255, 255, 0.08);
+            --gh-size: 150%;
+            --gh-duration: 1s;
+            --gh-angle: 130deg;
+        }
+
+        body {
+            margin: 0;
+            height: 100vh;
+            background: #0a0613;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: sans-serif;
+        }
+
+        .glare-hover {
+            width: var(--gh-width);
+            height: var(--gh-height);
+            background: var(--gh-bg);
+            border-radius: var(--gh-br);
+            border: 1px solid var(--gh-border);
+            overflow: hidden;
+            position: relative;
+            display: grid;
+            place-items: center;
+        }
+
+            .glare-hover::before {
+                content: "";
+                position: absolute;
+                inset: 0;
+                background: linear-gradient(var(--gh-angle), hsla(0, 0%, 0%, 0) 60%, var(--gh-rgba) 70%, hsla(0, 0%, 0%, 0), hsla(0, 0%, 0%, 0) 100%);
+                transition: var(--gh-duration) ease;
+                background-size: var(--gh-size) var(--gh-size), 100% 100%;
+                background-repeat: no-repeat;
+                background-position: -100% -100%, 0 0;
+            }
+
+            .glare-hover:hover {
+                cursor: pointer;
+            }
+
+                .glare-hover:hover::before {
+                    background-position: 100% 100%, 0 0;
+                }
+
+        .glare-hover--play-once::before {
+            transition: none;
+        }
+
+        .glare-hover--play-once:hover::before {
+            transition: var(--gh-duration) ease;
+            background-position: 100% 100%, 0 0;
+        }
+
+        .glare-hover span {
+            color: rgba(255, 255, 255, 0.08);
+            font-weight: bold;
+            font-size: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="glare-hover">
+        <span>Hover Me</span>
+    </div>
+</body>
+</html>
